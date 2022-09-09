@@ -1,8 +1,8 @@
 version: '3.5'
 
 services: 
-  postgres:
-    container_name: postgres_pizzaria
+  pizzaria-db:
+    container_name: pizzaria-db
     image: postgres
     environment:
       - POSTGRES_USER=postgres
@@ -15,12 +15,8 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - postgres
+      - default
     restart: unless-stopped
-
 networks:
-  postgres:
+  default:
     driver: bridge
-
-volumes:
-    postgres:
