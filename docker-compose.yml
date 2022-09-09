@@ -1,0 +1,26 @@
+version: '3.5'
+
+services: 
+  postgres:
+    container_name: postgres_pizzaria
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${DB_PASSWORD-pizzaria123}
+      - POSTGRES_DB=pizzaria
+    healthcheck:
+      test: 'pg_isready -U postgres'
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+    postgres:
